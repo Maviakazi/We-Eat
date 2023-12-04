@@ -1,0 +1,29 @@
+{
+    "name": "project2",
+    "version": "1.0.0",
+    "description": "### 🍗 Introduction",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js",
+        "devStart": "nodemon server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.20.2",
+        "cookie-parser": "^1.4.6",
+        "dotenv": "^16.3.1",
+        "ejs": "^3.1.9",
+        "express": "^4.18.2",
+        "express-ejs-layouts": "^2.5.1",
+        "express-generator": "^4.16.1",
+        "express-session": "^1.17.3",
+        "method-override": "^3.0.0",
+        "mongoose": "^8.0.2",
+        "morgan": "^1.10.0",
+        "passport": "^0.6.0",
+        "passport-google-oauth": "^2.0.0"
+    }
+}
