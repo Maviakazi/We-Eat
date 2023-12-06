@@ -5,6 +5,12 @@
 <div>
     <h2><%= restaurant.name%></h2>
 </div>
+<div><a href="/restaurants/<%=restaurant.id%>/edit">Edit</a></div>
+<div>
+    <form method="POST" action="/restaurants/<%= restaurant.id%>?_method=DELETE" onsubmit="return confirmDelete()">
+        <button type="submit">Delete</button>
+    </form>
+</div>
 
 <div><strong>Address:</strong><%= restaurant.address%></div>
 

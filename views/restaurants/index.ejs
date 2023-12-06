@@ -7,6 +7,12 @@
         <div><%= r.name%></div>
         <div><%= r.address%></div>
         <div><a href="/restaurants/<%=r.id%>">View</a></div>
+        <div><a href="/restaurants/<%=r.id%>/edit">Edit</a></div>
+        <div>
+            <form method="POST" action="/restaurants/<%= r.id%>?_method=DELETE" onsubmit="return confirmDelete()">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
     <%}) %>
 </div>
 
