@@ -13,7 +13,12 @@
         <ul>
         
             <li><a href="/restaurants">All Restaurants</a></li>
+            <% if (user) { %>
             <li><a href="/restaurants/new">Add Restaurant</a></li>
+            <a href="/logout">LOG OUT</a>
+            <% } else { %>
+                <a href="/auth/google">LOG IN&nbsp;</a>
+                <% } %>
             <!-- <li><a href="/books">All Books</a></li>
             <li><a href="/books/new">Add Book</a></li> -->
         </ul>

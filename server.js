@@ -14,7 +14,7 @@ const restaurantsRouter = require('./routes/restaurants');
 require('dotenv').config();
 require('./config/database');
 
-// require('./config/passport');
+require('./config/passport');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -24,22 +24,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+    session({
+        secret: process.env.SECRET,
+        resave: false,
+        saveUninitialized: true,
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(function (req, res, next) {
+    res.locals.user = req.user;
+    next();
+});
 app.use(methodOverride('_method'));
-
-// app.use(
-//     session({
-//         secret: process.env.SECRET,
-//         resave: false,
-//         saveUninitialized: true,
-//     })
-// );
-
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/restaurants', restaurantsRouter);
 
-app.listen(process.env.PORT || 3012);
+app.listen(process.env.PORT || 3000);
 
 module.exports = app;
