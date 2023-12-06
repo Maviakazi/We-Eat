@@ -1,4 +1,4 @@
-const createError = require('http-errors');
+// const createError = require('http-errors');
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -8,12 +8,13 @@ const session = require('express-session');
 const passport = require('passport');
 const methodOverride = require('method-override');
 
+const indexRouter = require('./routes/index');
+const restaurantsRouter = require('./routes/restaurants');
+
 require('dotenv').config();
 require('./config/database');
 
 // require('./config/passport');
-
-const indexRouter = require('./routes/index');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -37,7 +38,8 @@ app.use(methodOverride('_method'));
 // app.use(passport.session());
 
 app.use('/', indexRouter);
+app.use('/restaurants', restaurantsRouter);
 
-app.listen(process.env.PORT || 3002);
+app.listen(process.env.PORT || 3012);
 
 module.exports = app;
