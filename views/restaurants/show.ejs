@@ -1,51 +1,48 @@
 <%- include('../partials/header') %>
 
+    <div>
+        <h2>
+            <%= restaurant.name %>
+        </h2>
+    </div>
+    <div><a href="/restaurants/<%= restaurant.id %>/edit">Edit</a></div>
+    <div>
+        <form method="POST" action="/restaurants/<%= restaurant.id %>?_method=DELETE" onsubmit="return confirmDelete()">
+            <button type="submit">Delete</button>
+        </form>
+    </div>
 
+    <div><strong>Address:</strong>
+        <%= restaurant.address %>
+    </div>
 
-<div>
-    <h2><%= restaurant.name%></h2>
-</div>
-<div><a href="/restaurants/<%=restaurant.id%>/edit">Edit</a></div>
-<div>
-    <form method="POST" action="/restaurants/<%= restaurant.id%>?_method=DELETE" onsubmit="return confirmDelete()">
-        <button type="submit">Delete</button>
-    </form>
-</div>
+    <div>
+        <h3>Menu</h3>
+        <% if (restaurant.menu && restaurant.menu.length> 0) { %>
+            <ul>
+            <% restaurant.menu.forEach(menuItem=> { %>
+             
+               
+                    
+                        <li>
+                            Name: <%= menuItem.name %> 
+                        </li>
 
-<div><strong>Address:</strong><%= restaurant.address%></div>
+                        <li>
+                            Price: $<%= menuItem.price %>
+                        </li>
 
-<div>
-    <h3>Menu:</h3>
-    <br>
-    <% if (restaurant.menu && restaurant.menu.length> 0) { %>
-        <strong>Starters:</strong>
-        <ul>
-            <% restaurant.menu[0].starters.forEach(function (starter) { %>
-                <li>
-                    <%= starter %>
-                </li>
-                <% }) %>
-        </ul>
-    
-        <strong>Main Course:</strong>
-        <ul>
-            <% restaurant.menu[0].maincourse.forEach(function (mainCourse) { %>
-                <li>
-                    <%= mainCourse %>
-                </li>
-                <% }) %>
-        </ul>
-    
-        <strong>Dessert:</strong>
-        <ul>
-            <% restaurant.menu[0].dessert.forEach(function (dessert) { %>
-                <li>
-                    <%= dessert %>
-                </li>
-                <% }) %>
-        </ul>
-        <% } else { %>
-            <p>No menu available.</p>
-            <% } %>
-                </div>
-<%- include('../partials/footer') %>
+                        <li>
+                            Category: <%= menuItem.category %>
+                        </li>
+                        <br><br>
+                        <% }); %>
+                </ul>
+               
+                    <% } else { %>
+                        <p>No menu available.</p>
+                        <% } %>
+
+    </div>
+
+    <%- include('../partials/footer') %>

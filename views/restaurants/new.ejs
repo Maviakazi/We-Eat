@@ -1,29 +1,67 @@
 <%- include('../partials/header') %>
 
-<H2>NEW RESTAURANT</H2>
+    <H2>NEW RESTAURANT</H2>
 
-<form action="/restaurants" method="POST">
+    <form action="/restaurants" method="POST">
 
-    <label for="name">Restaurant Name</label>
-    <input type="text" id="name" name="name" value="<%= restaurant.name%>">
-    <br><br>
-    <label for="address">Address</label>
-    <input type="text" id="address" name="address" value="<%= restaurant.address%>"">
-    <br><br>
+        <label for="name">Restaurant Name</label>
+        <input type="text" id="name" name="name" value="<%= restaurant.name %>">
+        <br><br>
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" value="<%= restaurant.address %>">
+        <br><br>
 
-    <h3>Menu</h3>
-    <label for="starters">Starters (comma-separated)</label>
-    <input type="text" id="starters" name="menu.starters">
-    <br>
-    <label for="maincourse">Main Course (comma-separated, required)</label>
-    <input type="text" id="maincourse" name="menu.maincourse" required>
-    <br>
-    <label for="dessert">Dessert (comma-separated)</label>
-    <input type="text" id="dessert" name="menu.dessert">
-    <br>
-    
-    <button type="submit">Create Restaurant</button>
+        <h3>Menu</h3>
 
-</form>
+        <div id="menuCategories">
+            <div class="menuCategory">
+                <label for="category">Category</label>
+                <select name="menu[0].category" required>
+                    <option value="starters">Starters</option>
+                    <option value="maincourse">Main Course</option>
+                    <option value="dessert">Dessert</option>
+                </select>
+                <br>
+                <label for="dishes">Dishes</label>
+                <input type="text" name="menu[0].dishes">
+                <br>
+                <label for="price">Price</label>
+                <input type="text" name="menu[0].price">
+            </div>
+        </div>
 
-<%- include('../partials/footer') %>
+        <button type="button" onclick="addCategory()">Add Category</button>
+        <br><br>
+
+        <button type="submit">Create Restaurant</button>
+
+    </form>
+
+    <script>
+        function addCategory() {
+            const container = document.getElementById('menuCategories');
+            const newCategory = document.createElement('div');
+            newCategory.classList.add('menuCategory');
+
+            const categoryIndex = container.children.length;
+
+            newCategory.innerHTML = `
+            <label for="category">Category</label>
+            <select name="menu[${categoryIndex}].category" required>
+                <option value="starters">Starters</option>
+                <option value="maincourse">Main Course</option>
+                <option value="dessert">Dessert</option>
+            </select>
+            <br>
+            <label for="dishes">Dishes</label>
+            <input type="text" name="menu[${categoryIndex}].dishes">
+            <br>
+            <label for="price">Price</label>
+            <input type="text" name="menu[${categoryIndex}].price">
+        `;
+
+            container.appendChild(newCategory);
+        }
+    </script>
+
+    <%- include('../partials/footer') %>

@@ -25,7 +25,7 @@ async function show(req, res) {
     try {
         const restaurantId = req.params.id;
         const restaurant = await Restaurant.findById(restaurantId);
-        console.log(restaurant);
+        // console.log(restaurant);
         res.render('restaurants/show', { restaurant });
     } catch (err) {
         console.log(err);
@@ -41,17 +41,11 @@ async function create(req, res) {
         const restaurantData = {
             name: req.body.name,
             address: req.body.address,
-            menu: {
-                starters: req.body['menu.starters']
-                    .split(',')
-                    .map((item) => item.trim()),
-                maincourse: req.body['menu.maincourse']
-                    .split(',')
-                    .map((item) => item.trim()),
-                dessert: req.body['menu.dessert']
-                    .split(',')
-                    .map((item) => item.trim()),
-            },
+            menu: req.body.menu.map((item) => ({
+                category: item.category,
+                dishes: [item.dishes],
+                price: item.price,
+            })),
         };
 
         const newRestaurant = await Restaurant.create(restaurantData);
@@ -78,6 +72,7 @@ async function edit(req, res) {
     try {
         const id = req.params.id;
         const restaurant = await Restaurant.findById(id);
+        // console.log(restaurant);
 
         res.render('restaurants/edit', { restaurant });
     } catch (err) {
@@ -87,11 +82,21 @@ async function edit(req, res) {
 
 async function update(req, res) {
     const id = req.params.id;
+
     try {
         const restaurant = await Restaurant.findById(id);
 
-        restaurant.name = req.body.name;
-        restaurant.address = req.body.address;
+        //console.log(`req.body.menu is ${req.body.menu}`);
+
+        req.body.menu_name.forEach((menuItem, index) => {
+            //restaurant.menu[index].name = req.body.menuItem;
+            // console.log(index);
+            //console.log(`${index} is ${req.body.price[index]}`);
+            restaurant.menu[index].name = req.body.menu_name[index];
+            restaurant.menu[index].price = req.body.menu_price[index];
+
+            // console.log(restaurant.menu[index].name);
+        });
 
         await restaurant.save();
         res.redirect(`${restaurant.id}`);
@@ -99,3 +104,47 @@ async function update(req, res) {
         console.log(err);
     }
 }
+
+//         const restaurant = await Restaurant.findById(id);
+
+//         // Convert menuData string to array
+//         const menuDataArray = req.body.menu;
+//         // const menuDataArray = menuDataString.split(',');
+//         console.log(typeof menuDataArray);
+//         console.log(`menuDataArray is ${menuDataArray}`);
+
+//         // Clear existing menu
+//         restaurant.menu = [];
+
+//         let currentCategory = null;
+
+//         // Iterate through menuDataArray and update the restaurant's menu
+//         menuDataArray.forEach((data, index) => {
+//             // Check if it's a dish name
+//             if (index % 3 === 0) {
+//                 currentCategory.dishes.push({
+//                     name: data,
+//                     price: parseFloat(menuDataArray[index + 1]) || 0,
+//                     category: menuDataArray[index + 2],
+//                 });
+//             } else {
+//                 // It's a category
+//                 currentCategory = {
+//                     category: data,
+//                     dishes: [],
+//                 };
+//                 restaurant.menu.push(currentCategory);
+//             }
+//         });
+
+//         await restaurant.save();
+//         res.redirect(`${restaurant.id}`);
+//     } catch (err) {
+//         console.log(err);
+//         // Handle errors and send an appropriate response
+//         res.status(500).send('Internal Server Error');
+//     }
+// }
+
+//  console.log(`req.body is ${req.body}`);
+//  console.log(`menuData is ${menuData}`);

@@ -1,38 +1,47 @@
-<%- include('../partials/header') %>
 
-<h2>Edit <%= restaurant.name%></h2>
-<form method='POST' action="/restaurants/<%= restaurant.id%>?_method=PUT">
-    <label for="name">Name of Restaurant</label>
-    <input type="text" id="name" name="name" value="<%= restaurant.name %>">
-    <br><br>
-    <label for="address">Address</label>
-    <input type="text" id="address" name="address" value="<%= restaurant.address %>">
-    <br><br>
 
-    <h3>Edit Menu</h3>
-    
-    <% if (restaurant.menu) { %>
-        <!-- Starters -->
-        <label for="menuStarters">Starters (comma-separated)</label>
-        <input type="text" id="menuStarters" name="menu.starters"
-            value="<%= restaurant.menu.starters ? restaurant.menu.starters.join(', ') : '' %>">
-        <br><br>
-    
-        <!-- Main Course -->
-        <label for="menuMainCourse">Main Course (comma-separated)</label>
-        <input type="text" id="menuMainCourse" name="menu.maincourse"
-            value="<%= restaurant.menu.maincourse ? restaurant.menu.maincourse.join(', ') : '' %>">
-        <br><br>
-    
-        <!-- Dessert -->
-        <label for="menuDessert">Dessert (comma-separated)</label>
-        <input type="text" id="menuDessert" name="menu.dessert"
-            value="<%= restaurant.menu.dessert ? restaurant.menu.dessert.join(', ') : '' %>">
-        <br><br>
-        <% } %>
-    
-            <a href="/restaurants">Cancel</a>
-            <button type="submit">Update Restaurant</button>
-            </form>
+<form method="POST" action="/restaurants/<%= restaurant.id %>?_method=PUT">
+    <!-- Restaurant details -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="<%= restaurant.name %>" required>
+    <br>
 
-            <%- include('../partials/footer') %>
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" value="<%= restaurant.address %>" required>
+    <br>
+
+    <!-- Menu details -->
+    <h3>Edit Menu:</h3>
+    
+<% restaurant.menu.forEach(function (menuItem, index) { %>
+  
+
+<% if (menuItem) { %>
+
+
+    <label for="menu_<%= index %>_name">Dish Name:</label>
+    <input type="text" id="menu_<%= index %>_name" name="menu_name" value="<%= menuItem.name %>" required>
+
+
+        <label for="menu_<%= index %>_name">Dish Price:</label>
+        <input type="text" id="menu_<%= index %>_name" name="menu_price" value="<%= menuItem.price %>" required>
+
+<br><br>
+    <br>
+
+
+
+    <% } %>
+ 
+            <% }); %>
+               
+                   
+           
+                        <button type="submit">Update Restaurant</button>
+    </form>
+
+    <script>
+        function addMenuItem() {
+            
+        }
+    </script>

@@ -1,15 +1,19 @@
 const mongoose = require('mongoose');
 
 const menuSchema = new mongoose.Schema({
-    starters: {
-        type: [String],
-    },
-    maincourse: {
-        type: [String],
+    name: {
+        type: String,
         required: true,
     },
-    dessert: {
-        type: [String],
+    category: {
+        type: String,
+        enum: ['starters', 'maincourse', 'dessert', 'uncategorized'],
+        required: false,
+        default: 'uncategorized',
+    },
+    price: {
+        type: Number,
+        required: true,
     },
 });
 
