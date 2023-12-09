@@ -9,7 +9,12 @@ router.delete(
     '/restaurants/:restaurantId/menu/:menuItemid',
     menuController.delete
 );
-
+router.get('/restaurants/:restaurantId/menu/new', menuController.new);
+router.post('/restaurants/:restaurantId/menu', menuController.create);
+router.get(
+    '/restaurants/:restaurantId/menu/:menuItemId/edit',
+    menuController.edit
+);
 router.put(
     '/restaurants/:restaurantId/menu/:menuItemId',
     menuController.update

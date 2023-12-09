@@ -1,0 +1,56 @@
+<%- include('../partials/header') %>
+
+<form method="POST" action="/restaurants/<%= restaurant.id %>/menu">
+
+
+    <div id="menuCategories">
+        <div class="menuCategory">
+            <label for="category">Category</label>
+            <select name="menu_category" required>
+                <option value="starters">Starters</option>
+                <option value="maincourse">Main Course</option>
+                <option value="dessert">Dessert</option>
+            </select>
+            <br>
+            <label for="dishes">Dishes</label>
+            <input type="text" name="menu_name">
+            <br>
+            <label for="price">Price</label>
+            <input type="text" name="menu_price">
+        </div>
+    </div>
+    
+    <button type="submit">Add Dish</button>
+    <br><br>
+
+</form>
+
+
+<script>
+    function addCategory() {
+            const container = document.getElementById('menuCategories');
+            const newCategory = document.createElement('div');
+            newCategory.classList.add('menuCategory');
+
+            const categoryIndex = container.children.length;
+
+            newCategory.innerHTML = `
+            <label for="category">Category</label>
+            <select name="menu_category" required>
+                <option value="starters">Starters</option>
+                <option value="maincourse">Main Course</option>
+                <option value="dessert">Dessert</option>
+            </select>
+            <br>
+            <label for="dishes">Dishes</label>
+            <input type="text" name="menu_name">
+            <br>
+            <label for="price">Price</label>
+            <input type="text" name="menu_price">
+        `;
+
+            container.appendChild(newCategory);
+        }
+</script>
+
+<%- include('../partials/footer') %>

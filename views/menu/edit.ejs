@@ -1,10 +1,17 @@
 <%- include('../partials/header') %>
 
-<label for="menu_<%= index %>_name">Dish Name:</label>
-<input type="text" id="menu_<%= index %>_name" name="menu_name" value="<%= menuItem.name %>" required>
+<form method="POST" action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem.id %>?_method=PUT">
+
+<h3>Edit this dish in <%= menuItem.category.charAt(0).toUpperCase()+ menuItem.category.slice(1) %></h3>
+
+<label for="menu_name">Dish Name:</label>
+<input type="text" id="menu_name" name="menu_name" value="<%= menuItem.name %>" required>
 
 
-<label for="menu_<%= index %>_name">Dish Price:</label>
-<input type="text" id="menu_<%= index %>_name" name="menu_price" value="<%= menuItem.price %>" required>
+<label for="menu_price">Dish Price:</label>
+<input type="text" id="menu_price" name="menu_price" value="<%= menuItem.price %>" required>
+
+<button type="submit">Update dish</button>
+</form>
 
 <%- include('../partials/footer') %>

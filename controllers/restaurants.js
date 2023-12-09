@@ -25,7 +25,6 @@ async function show(req, res) {
     try {
         const restaurantId = req.params.id;
         const restaurant = await Restaurant.findById(restaurantId);
-        // console.log(restaurant);
         res.render('restaurants/show', { restaurant });
     } catch (err) {
         console.log(err);
@@ -38,8 +37,8 @@ async function newRestaurant(req, res) {
 
 async function create(req, res) {
     try {
-        console.log(`req.body.name is ${req.body.name}`);
-        console.log(`req.body.menu_name is ${req.body.menu_name}`);
+        // console.log(`req.body.name is ${req.body.name}`);
+        // console.log(`req.body.menu_name is ${req.body.menu_name}`);
 
         const restaurantData = {
             name: req.body.name,

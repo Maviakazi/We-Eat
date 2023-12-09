@@ -4,6 +4,8 @@
         <h2>
             <%= restaurant.name %>
         </h2>
+        <br>
+        <a href="/restaurants/<%= restaurant.id %>/menu/new">Add New Dish</a>
     </div>
     <div><a href="/restaurants/<%= restaurant.id %>/edit">Edit</a></div>
     <div>
@@ -36,7 +38,9 @@
                             Category: <%= menuItem.category %>
                         </li>
                         <br>
-                        <div><a href="/restaurants/<%=menuItem._id%>/edit">Edit Dish</a>
+                        <a href="/restaurants/<%= restaurant.id %>/menu/<%= menuItem.id %>/edit">Edit Dish</a>
+
+
                         <form action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem._id %>?_method=DELETE" method="POST">
                             <button type="submit">Delete Dish</button>
                         </form>
