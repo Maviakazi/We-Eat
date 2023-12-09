@@ -22,7 +22,7 @@
             <ul>
             <% restaurant.menu.forEach(menuItem=> { %>
              
-               
+                       
                     
                         <li>
                             Name: <%= menuItem.name %> 
@@ -35,7 +35,13 @@
                         <li>
                             Category: <%= menuItem.category %>
                         </li>
+                        <br>
+                        <div><a href="/restaurants/<%=menuItem._id%>/edit">Edit Dish</a>
+                        <form action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem._id %>?_method=DELETE" method="POST">
+                            <button type="submit">Delete Dish</button>
+                        </form>
                         <br><br>
+                        
                         <% }); %>
                 </ul>
                

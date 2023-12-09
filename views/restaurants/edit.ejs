@@ -18,13 +18,17 @@
 
 <% if (menuItem) { %>
 
+    <strong>Category: <%= menuItem.category.charAt(0).toUpperCase()+ menuItem.category.slice(1) %></strong> <br>
 
     <label for="menu_<%= index %>_name">Dish Name:</label>
-    <input type="text" id="menu_<%= index %>_name" name="menu_name" value="<%= menuItem.name %>" required>
+    <input type="text" id="menu_<%= index %>_name" name="menu_name" value="<%= menuItem.name %>" required><br>
 
+    <label for="menu_<%= index %>_name">Dish Price:</label>
+    <input type="text" id="menu_<%= index %>_name" name="menu_price" value="<%= menuItem.price %>" required><br>
 
-        <label for="menu_<%= index %>_name">Dish Price:</label>
-        <input type="text" id="menu_<%= index %>_name" name="menu_price" value="<%= menuItem.price %>" required>
+    <form action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete Dish</button>
+    </form>
 
 <br><br>
     <br>

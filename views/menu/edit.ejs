@@ -1,0 +1,10 @@
+<%- include('../partials/header') %>
+
+<label for="menu_<%= index %>_name">Dish Name:</label>
+<input type="text" id="menu_<%= index %>_name" name="menu_name" value="<%= menuItem.name %>" required>
+
+
+<label for="menu_<%= index %>_name">Dish Price:</label>
+<input type="text" id="menu_<%= index %>_name" name="menu_price" value="<%= menuItem.price %>" required>
+
+<%- include('../partials/footer') %>

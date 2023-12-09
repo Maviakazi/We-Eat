@@ -10,6 +10,7 @@ const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
 const restaurantsRouter = require('./routes/restaurants');
+const menuRouter = require('./routes/menu');
 
 require('dotenv').config();
 require('./config/database');
@@ -41,6 +42,7 @@ app.use(methodOverride('_method'));
 
 app.use('/', indexRouter);
 app.use('/restaurants', restaurantsRouter);
+app.use('/', menuRouter);
 
 app.listen(process.env.PORT || 3000);
 
