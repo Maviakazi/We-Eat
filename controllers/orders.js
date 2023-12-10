@@ -7,7 +7,15 @@ module.exports = {
     addToOrder,
     addToRestaurant,
     removeFromOrder,
+    checkout,
 };
+
+async function checkout(req, res) {
+    const userId = req.user._id;
+    const user = req.user;
+
+    res.render('orders/checkout');
+}
 
 async function index(req, res) {
     try {
@@ -16,10 +24,16 @@ async function index(req, res) {
         const user = req.user;
         let userOrder = [];
         userOrder = await Order.find({ user: userId });
-        // console.log(`userOrder is ${userOrder}`);
-        res.render('orders/index', { userOrder, user });
+
+        const restaurantId =
+            userOrder.length > 0 ? userOrder[0].restaurant : null;
+
+        const restaurant = await Restaurant.findById(restaurantId);
+        console.log(`Restaurant is ${restaurant}`);
+        res.render('orders/index', { userOrder, user, restaurant });
     } catch (error) {
         console.log(error);
+        res.status(500).send('Login to retrieve order page');
     }
 }
 
@@ -52,26 +66,35 @@ async function addToOrder(req, res) {
     try {
         const restaurantId = req.params.restaurantId;
         const menuItemId = req.params.menuItemId;
-        // console.log(`menuItemId is ${req.params.menuItemId}`);
-        const restaurant = await Restaurant.findById(restaurantId);
-        const menuItem = restaurant.menu.id(menuItemId);
         const userId = req.user._id;
 
-        // console.log(`menuItem is ${menuItem}`);
+        // Check if the user already has an order for a different restaurant
+        const existingOrder = await Order.findOne({
+            user: userId,
+            restaurant: { $ne: restaurantId }, // Check if the restaurant is not the same
+        });
+
+        if (existingOrder) {
+            return res
+                .status(400)
+                .send('Cannot order from multiple restaurants');
+        }
+
+        const restaurant = await Restaurant.findById(restaurantId);
+        const menuItem = restaurant.menu.id(menuItemId);
 
         const newOrder = await Order.create({
             name: menuItem.name,
             price: +menuItem.price,
             user: userId,
+            restaurant: restaurantId,
         });
-        console.log(`neworderId is ${newOrder._id}`);
+
         // Push the order ID to the restaurant's order array
-        restaurant.order.push(newOrder);
+        restaurant.order.push(newOrder._id);
 
         // Save the updated restaurant
         await restaurant.save();
-        // console.log(`restaurant.order is ${restaurant.order}`);
-        // restaurant.order.push(req.body.orderId);
 
         res.redirect(`/restaurants/${restaurantId}`);
     } catch (error) {

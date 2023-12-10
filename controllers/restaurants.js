@@ -14,6 +14,7 @@ module.exports = {
 
 async function index(req, res) {
     try {
+        // const user = req.user
         const restaurants = await Restaurant.find();
         res.render('restaurants/index', { restaurants });
     } catch (err) {

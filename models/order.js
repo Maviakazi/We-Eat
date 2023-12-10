@@ -18,6 +18,11 @@ const orderSchema = new Schema({
         ref: 'User',
         required: true,
     },
+    restaurant: {
+        type: Schema.Types.ObjectId,
+        ref: 'Restaurant',
+        required: true,
+    },
 });
 
 module.exports = mongoose.model('Order', orderSchema);

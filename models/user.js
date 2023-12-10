@@ -8,7 +8,10 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
-        isAdmin: Boolean,
+        isAdmin: {
+            type: Boolean,
+            default: false,
+        },
         email: String,
         avatar: String,
     },

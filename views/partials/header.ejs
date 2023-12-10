@@ -13,10 +13,16 @@
         <ul>
         
             <li><a href="/restaurants">All Restaurants</a></li>
+           
+            <% if (user && user.isAdmin) { %>
             <li><a href="/restaurants/new">Add Restaurant</a></li>
-            <% if (user) { %>
-                <li><a href="/order">My Order</a></li>
+           
+               
             <a href="/logout">LOG OUT</a>
+            <% } else if(user && !user.isAdmin){%>
+                <li><a href="/order">My Order</a></li>
+                
+                <a href="/logout">LOG OUT</a>
             <% } else { %>
                 <a href="/auth/google">LOG IN&nbsp;</a>
                 <% } %>

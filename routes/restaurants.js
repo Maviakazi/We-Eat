@@ -4,11 +4,11 @@ const restaurantsController = require('../controllers/restaurants');
 const ensureLoggedIn = require('../config/ensureLoggedIn');
 
 router.get('/', restaurantsController.index);
-router.get('/new', restaurantsController.new);
+router.get('/new', ensureLoggedIn, restaurantsController.new);
 router.get('/:id', restaurantsController.show);
-router.post('/', restaurantsController.create);
-router.get('/:id/edit', restaurantsController.edit);
-router.put('/:id', restaurantsController.update);
-router.delete('/:id', restaurantsController.delete);
+router.post('/', ensureLoggedIn, restaurantsController.create);
+router.get('/:id/edit', ensureLoggedIn, restaurantsController.edit);
+router.put('/:id', ensureLoggedIn, restaurantsController.update);
+router.delete('/:id', ensureLoggedIn, restaurantsController.delete);
 
 module.exports = router;

@@ -5,6 +5,7 @@
             <%= restaurant.name %>
         </h2>
         <br>
+        <% if(user && user.isAdmin){%>
         <a href="/restaurants/<%= restaurant.id %>/menu/new">Add New Dish</a>
     </div>
     <div><a href="/restaurants/<%= restaurant.id %>/edit">Edit</a></div>
@@ -12,6 +13,7 @@
         <form method="POST" action="/restaurants/<%= restaurant.id %>?_method=DELETE" onsubmit="return confirmDelete()">
             <button type="submit">Delete</button>
         </form>
+        <% }%>
     </div>
 
     <div><strong>Address:</strong>
@@ -37,20 +39,23 @@
                         <li>
                             Category: <%= menuItem.category %>
                         </li>
-                        <br>
+                        
+                        <% if(user && user.isAdmin){%>
                         <a href="/restaurants/<%= restaurant.id %>/menu/<%= menuItem.id %>/edit">Edit Dish</a>
 
 
                         <form action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem._id %>?_method=DELETE" method="POST">
                             <button type="submit">Delete Dish</button>
                         </form>
-
+                        <% } else if(user && !user.Admin) {%>
                         <form action="/orders/<%= restaurant.id %>/menu/<%= menuItem._id %>/add" method="POST">
                             <button type="submit">Add To Order</button>
                         </form>
-                        <br><br>
-                        
+                        <br>
+                        <% } %>
+                        <br>
                         <% }); %>
+                    
                 </ul>
                
                     <% } else { %>

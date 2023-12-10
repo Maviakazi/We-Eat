@@ -1,10 +1,14 @@
 <%- include('../partials/header') %>
 
 <h2>Your Order <%= user.name.split(' ')[0] %></h2>
+<h3<%= restaurant.name %></h3>
+
+
 
 
 <% if (userOrder){ %>
    
+    
 
         <table>
             <thead>
@@ -35,5 +39,7 @@
         </tfoot>
     </table> 
 <%}%>
+
+<li><a href="/order/checkout">Checkout</a></li>
 
 <%- include('../partials/footer') %>
