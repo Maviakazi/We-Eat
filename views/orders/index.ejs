@@ -3,4 +3,37 @@
 <h2>Your Order <%= user.name.split(' ')[0] %></h2>
 
 
+<% if (userOrder){ %>
+   
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Dish</th>
+                    <th>Price</th>
+            </thead>
+            <tbody>
+                <% let total=0 %>
+                <% userOrder.forEach(order=> { %>
+                    <% total +=order.price %>
+                <tr>
+                    <td> <%= order.name %> </td>
+                    <td> <%= order.price %> </td>
+                    <td><form action="/orders/<%= order._id %>?_method=DELETE" method="POST">
+                      
+                        <button type="submit">Remove</button>
+                    </form></td>
+                </tr>
+            </tbody>
+
+        <% })%>
+        <tfoot>
+            <tr>
+                <td><strong>Order Total</strong></td>
+                <td><strong>$<%=total%></strong></td>
+            </tr>
+        </tfoot>
+    </table> 
+<%}%>
+
 <%- include('../partials/footer') %>

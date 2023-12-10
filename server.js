@@ -5,7 +5,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const methodOverride = require('method-override');
 
@@ -32,7 +31,6 @@ app.use(
         secret: process.env.SECRET,
         resave: false,
         saveUninitialized: true,
-        store: new MongoStore({ mongooseConnection: mongoose.connection }),
     })
 );
 app.use(passport.initialize());
