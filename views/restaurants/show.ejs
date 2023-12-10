@@ -44,6 +44,10 @@
                         <form action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem._id %>?_method=DELETE" method="POST">
                             <button type="submit">Delete Dish</button>
                         </form>
+
+                        <form action="/orders/<%= restaurant.id %>/menu/<%= menuItem._id %>/add" method="POST">
+                            <button type="submit">Add To Order</button>
+                        </form>
                         <br><br>
                         
                         <% }); %>

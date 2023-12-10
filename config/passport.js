@@ -24,6 +24,7 @@ passport.use(
                 user = await User.create({
                     name: profile.displayName,
                     googleId: profile.id,
+                    isAdmin: false,
                     email: profile.emails[0].value,
                     avatar: profile.photos[0].value,
                 });

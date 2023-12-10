@@ -26,31 +26,5 @@
 </form>
 
 
-<script>
-    function addCategory() {
-            const container = document.getElementById('menuCategories');
-            const newCategory = document.createElement('div');
-            newCategory.classList.add('menuCategory');
-
-            const categoryIndex = container.children.length;
-
-            newCategory.innerHTML = `
-            <label for="category">Category</label>
-            <select name="menu_category" required>
-                <option value="starters">Starters</option>
-                <option value="maincourse">Main Course</option>
-                <option value="dessert">Dessert</option>
-            </select>
-            <br>
-            <label for="dishes">Dishes</label>
-            <input type="text" name="menu_name">
-            <br>
-            <label for="price">Price</label>
-            <input type="text" name="menu_price">
-        `;
-
-            container.appendChild(newCategory);
-        }
-</script>
 
 <%- include('../partials/footer') %>

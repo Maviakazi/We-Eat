@@ -1,17 +1,18 @@
+<%- include('../partials/header') %>
 
 
 <form method="POST" action="/restaurants/<%= restaurant.id %>?_method=PUT">
     <!-- Restaurant details -->
-    <label for="name">Name:</label>
+    <label for="name">Restaurant Name:</label>
     <input type="text" id="name" name="name" value="<%= restaurant.name %>" required>
     <br>
 
-    <label for="address">Address:</label>
+    <label for="address">Restaurant Address:</label>
     <input type="text" id="address" name="address" value="<%= restaurant.address %>" required>
     <br>
 
     <!-- Menu details -->
-    <h3>Edit Menu:</h3>
+    <h3>Edit Menu Items:</h3>
     
 <% restaurant.menu.forEach(function (menuItem, index) { %>
   
@@ -28,24 +29,17 @@
 
     <form action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem._id %>?_method=DELETE" method="POST">
         <button type="submit">Delete Dish</button>
-    </form>
+        
+    
 
 <br><br>
     <br>
 
-
-
     <% } %>
  
             <% }); %>
-               
-                   
            
-                        <button type="submit">Update Restaurant</button>
+        <button type="submit">Update Restaurant</button>
     </form>
 
-    <script>
-        function addMenuItem() {
-            
-        }
-    </script>
+<%- include('../partials/footer') %>

@@ -5,12 +5,14 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
 const restaurantsRouter = require('./routes/restaurants');
 const menuRouter = require('./routes/menu');
+const ordersRouter = require('./routes/orders');
 
 require('dotenv').config();
 require('./config/database');
@@ -30,6 +32,7 @@ app.use(
         secret: process.env.SECRET,
         resave: false,
         saveUninitialized: true,
+        store: new MongoStore({ mongooseConnection: mongoose.connection }),
     })
 );
 app.use(passport.initialize());
@@ -43,6 +46,7 @@ app.use(methodOverride('_method'));
 app.use('/', indexRouter);
 app.use('/restaurants', restaurantsRouter);
 app.use('/', menuRouter);
+app.use('/', ordersRouter);
 
 app.listen(process.env.PORT || 3000);
 

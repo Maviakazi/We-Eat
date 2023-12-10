@@ -71,8 +71,8 @@ async function update(req, res) {
 
         const menuItem = restaurant.menu.id(req.params.menuItemId);
 
-        // console.log(`menuItem is ${menuItem}`);
-        // console.log(`req.body.name is ${req.body.menu_name}`);
+        console.log(`menuItem is ${menuItem}`);
+        console.log(`req.body.name is ${req.body.menu_name}`);
 
         menuItem.name = req.body.menu_name;
         menuItem.price = req.body.menu_price;

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const menuSchema = new mongoose.Schema({
     name: {
@@ -27,6 +28,12 @@ const restaurantSchema = new mongoose.Schema({
         required: true,
     },
     menu: [menuSchema],
+    order: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Order',
+        },
+    ],
 });
 
 module.exports = mongoose.model('Restaurant', restaurantSchema);

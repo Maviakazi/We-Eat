@@ -61,6 +61,7 @@ async function create(req, res) {
 async function remove(req, res) {
     try {
         const restaurant = await Restaurant.findByIdAndDelete(req.params.id);
+        res.redirect(`/restaurants/${restaurant.id}`);
     } catch (err) {
         console.log(err);
     }
@@ -86,11 +87,11 @@ async function update(req, res) {
 
         req.body.menu_name.forEach((menuItem, index) => {
             restaurant.menu[index].name = req.body.menu_name[index];
-            restaurant.menu[index].price = req.body.menu_category[index];
+            restaurant.menu[index].price = req.body.menu_price[index];
         });
 
         await restaurant.save();
-        res.redirect(`${restaurant.id}`);
+        res.redirect(`/restaurants/${restaurant.id}`);
     } catch (err) {
         console.log(err);
         res.status(500).send('Internal Server Error');
