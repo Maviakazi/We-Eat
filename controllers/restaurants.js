@@ -44,6 +44,7 @@ async function create(req, res) {
         const restaurantData = {
             name: req.body.name,
             address: req.body.address,
+            image: req.body.image,
             menu: req.body.menu_name.map((name, index) => ({
                 name,
                 price: req.body.menu_price[index],
@@ -62,7 +63,7 @@ async function create(req, res) {
 async function remove(req, res) {
     try {
         const restaurant = await Restaurant.findByIdAndDelete(req.params.id);
-        res.redirect(`/restaurants/${restaurant.id}`);
+        res.redirect(`/restaurants`);
     } catch (err) {
         console.log(err);
     }
@@ -85,6 +86,9 @@ async function update(req, res) {
 
     try {
         const restaurant = await Restaurant.findById(id);
+        restaurant.name = req.body.name;
+        restaurant.address = req.body.address;
+        restaurant.image = req.body.image;
 
         req.body.menu_name.forEach((menuItem, index) => {
             restaurant.menu[index].name = req.body.menu_name[index];

@@ -34,6 +34,10 @@ const restaurantSchema = new mongoose.Schema({
             ref: 'Order',
         },
     ],
+    image: {
+        type: String,
+        required: false,
+    },
 });
 
 module.exports = mongoose.model('Restaurant', restaurantSchema);
