@@ -30,6 +30,9 @@
     <label for="menu_<%= index %>_name">Dish Price:</label>
     <input type="text" id="menu_<%= index %>_name" name="menu_price" value="<%= menuItem.price %>" required><br>
 
+    <label for="menu_<%= index %>_image">Image Url:</label>
+    <input type="url" id="menu_<%= index %>_image" name="menu_image" value="<%= menuItem.image %>" ><br>
+
     <form action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem._id %>?_method=DELETE" method="POST">
         <button type="submit">Delete Dish</button>
         

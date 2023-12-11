@@ -1,67 +1,81 @@
 <%- include('../partials/header') %>
 
-  <div>
-        <h2>
-            <%= restaurant.name %>
-        </h2>
-        <br>
-        <% if(user && user.isAdmin){%>
-        <a href="/restaurants/<%= restaurant.id %>/menu/new">Add New Dish</a>
-    </div>
-    <div><a href="/restaurants/<%= restaurant.id %>/edit">Edit</a></div>
-    <div>
-        <form method="POST" action="/restaurants/<%= restaurant.id %>?_method=DELETE" onsubmit="return confirmDelete()">
-            <button type="submit">Delete</button>
-        </form>
-        <% }%>
-    </div>
+    <section class="restaurants">
+        <div class="container py-5">
+            <div class="row py-2">
+                <div class="col-lg-5 m-auto text-center">
+                    <h1>
+                        <%= restaurant.name %>
+                    </h1>
+                    <h6 style="color:#777B7E;">
+                        <%= restaurant.address %>
+                    </h6>
+                </div>
+            </div>
 
-    <div><strong>Address:</strong>
-        <%= restaurant.address %>
-    </div>
-
-    <div>
-        <h3>Menu</h3>
-        <% if (restaurant.menu && restaurant.menu.length> 0) { %>
-            <ul>
-            <% restaurant.menu.forEach(menuItem=> { %>
-             
-                       
-                    
-                        <li>
-                            Name: <%= menuItem.name %> 
-                        </li>
-
-                        <li>
-                            Price: $<%= menuItem.price %>
-                        </li>
-
-                        <li>
-                            Category: <%= menuItem.category %>
-                        </li>
-                        
-                        <% if(user && user.isAdmin){%>
-                        <a href="/restaurants/<%= restaurant.id %>/menu/<%= menuItem.id %>/edit">Edit Dish</a>
-
-
-                        <form action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem._id %>?_method=DELETE" method="POST">
-                            <button type="submit">Delete Dish</button>
+            <div class="row">
+                <% if(user && user.isAdmin){%>
+                    <div class="col-12 mb-4 text-center">
+                        <div class="mt-3 d-flex justify-content-center">
+                        <a href="/restaurants/<%= restaurant.id %>/menu/new" class="btn btn-sm btn-custom mr-2">Add New
+                            Dish</a>
+                        <a href="/restaurants/<%= restaurant.id %>/edit" class="btn mr-5 btn-sm btn-custom !important">Edit
+                            Restaurant</a>
+                        <form method="POST" action="/restaurants/<%= restaurant.id %>?_method=DELETE"
+                            onsubmit="return confirmDelete()">
+                            <button type="submit" class="btn btn-sm btn-custom">Delete Restaurant</button>
                         </form>
-                        <% } else if(user && !user.Admin) {%>
-                        <form action="/orders/<%= restaurant.id %>/menu/<%= menuItem._id %>/add" method="POST">
-                            <button type="submit">Add To Order</button>
-                        </form>
-                        <br>
-                        <% } %>
-                        <br>
-                        <% }); %>
-                    
-                </ul>
-               
-                    <% } else { %>
-                        <p>No menu available.</p>
-                        <% } %>
+                        </div>
+                    </div>
+                    <% } %>
 
-    </div>
+                        <% if (restaurant.menu && restaurant.menu.length> 0) { %>
+                            <% restaurant.menu.forEach(menuItem=> { %>
+                                <div class="col-lg-3 mb-4 text-center">
+                                    <div class="card border-0 bg-light">
+                                        <div class="card-body">
+                                            <!-- Add content for each card here -->
+                                            <img src="<%= menuItem.image %>" class="card-img-top" alt="Restaurant Image"
+                                                style="max-height: 350px;">
+                                            <h5 class="card-title">
+                                                <%= menuItem.name %>
+                                            </h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">$<%= menuItem.price %>
+                                            </h6>
+                                            <h6>
+                                                <%= menuItem.category %>
+                                            </h6>
+                                        </div>
+
+                                        <div class="mt-3 d-flex justify-content-center">
+                                            <% if(user && user.isAdmin){%>
+                                                <a href="/restaurants/<%= restaurant.id %>/menu/<%= menuItem.id %>/edit"
+                                                    class="btn btn-sm btn-custom mr-2">Edit Dish</a>
+                                                <form
+                                                    action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem._id %>?_method=DELETE"
+                                                    method="POST">
+                                                    <button type="submit" class="btn btn-sm btn-custom">Delete
+                                                        Dish</button>
+                                                </form>
+                                                <% } else if(user && !user.Admin) {%>
+                                                    <form
+                                                        action="/orders/<%= restaurant.id %>/menu/<%= menuItem._id %>/add"
+                                                        method="POST">
+                                                        <button type="submit" class="btn btn-sm btn-custom">Add To
+                                                            Order</button>
+                                                    </form>
+                                                    <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }); %>
+                                    <% } else { %>
+                                        <div class="col-12">
+                                            <p>No menu available.</p>
+                                        </div>
+                                        <% } %>
+            </div>
+        </div>
+    </section>
 
     <%- include('../partials/footer') %>

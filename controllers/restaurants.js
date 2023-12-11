@@ -49,6 +49,7 @@ async function create(req, res) {
                 name,
                 price: req.body.menu_price[index],
                 category: req.body.menu_category[index],
+                image: req.body.menu_image[index],
             })),
         };
 
@@ -93,6 +94,7 @@ async function update(req, res) {
         req.body.menu_name.forEach((menuItem, index) => {
             restaurant.menu[index].name = req.body.menu_name[index];
             restaurant.menu[index].price = req.body.menu_price[index];
+            restaurant.menu[index].image = req.body.menu_image[index];
         });
 
         await restaurant.save();
