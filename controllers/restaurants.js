@@ -14,9 +14,47 @@ module.exports = {
 
 async function index(req, res) {
     try {
-        // const user = req.user
-        const restaurants = await Restaurant.find();
-        res.render('restaurants/index', { restaurants });
+        let restaurants = [];
+        let menuItems = [];
+
+        // Fetch all restaurants when no search query is provided
+        if (!req.query.name || req.query.name.trim() === '') {
+            restaurants = await Restaurant.find();
+        } else {
+            // Search for restaurants
+            restaurants = await Restaurant.find({
+                name: { $regex: new RegExp(req.query.name, 'i') },
+            });
+
+            // Search for menu items
+            menuItems = await Restaurant.aggregate([
+                {
+                    $unwind: '$menu',
+                },
+                {
+                    $match: {
+                        'menu.name': {
+                            $regex: new RegExp(req.query.name, 'i'),
+                        },
+                    },
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        restaurantId: '$_id',
+                        restaurantName: '$name',
+                        restaurantAddress: '$address',
+                        menuItem: '$menu',
+                    },
+                },
+            ]);
+        }
+
+        res.render('restaurants/index', {
+            restaurants,
+            menuItems,
+            searchOptions: req.query,
+        });
     } catch (err) {
         console.log(err);
     }

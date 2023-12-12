@@ -1,56 +1,91 @@
 <%- include('../partials/header') %>
 
-<section class="restaurants">
-    <div class="banner-container">
-        <img src="/images/banner.png"
-            alt="Food Banner" class="img-fluid" />
-    </div>
-    <div class="container py-5">
-        <div class="row py-2">
-            <div class="col-lg-5 m-auto text-center">
-                <h1>Restaurants</h1>
-                <h6 style="color:#777B7E;">Discover Every Flavorful Dining Spot</h6>
+    <div class="container-fluid mt-3 newitem">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+
+            <div class="col">
+                <form class="form-inline float-lg-right" action="/restaurants" method="GET">
+                    <div class="form-group mx-sm-3 mb-2 d-flex">
+                        <label for="name" class="sr-only"></label>
+                        <input type="text" value="<%= searchOptions.name %>" name="name" class="form-control"
+                            placeholder="Search by Restaurant Name">
+                        <button type="submit" class="btn btn-custom ml-2">Search</button>
+                    </div>
+                </form>
             </div>
-           
-        </div>
-        <div class="row">
-            <% restaurants.forEach((r, index)=> { %>
-                <div class="col-lg-3 mb-4 text-center">
-                    <div class="card border-0 bg-light shadow">
-                    <div class="card-body">
-                        <!-- Add content for each card here -->
-                        <img src="<%= r.image %>" class="card-img-top " alt="Restaurant Image" style="max-height: 350px;">
-                        <h5 class="card-title">
-                            <%= r.name %>
-                        </h5>
-                        <h6 class="card-subtitle mb-2 text-muted">
-                            <%= r.address %>
-                        </h6>
-                    </div>
-                    </div>
-                    <div class="mt-3 d-flex justify-content-center"> <!-- Added d-flex and justify-content-between for spacing -->
-                        <a href="/restaurants/<%= r.id %>" class="btn  btn-sm btn-custom">View</a> <!-- Added btn-sm for smaller size -->
-                        <% if(user && user.isAdmin){ %>
-                            <a href="/restaurants/<%= r.id %>/edit" class="btn btn-sm btn-custom" style="margin-left: 5px; margin-right: 5px;">Edit</a>
-                            <!-- Added mx-2 for margin -->
-                            <form method="POST" action="/restaurants/<%= r.id %>?_method=DELETE" onsubmit="return confirmDelete()"
-                                class="d-inline">
-                                <button type="submit" class="btn btn-sm btn-custom">Delete</button> <!-- Added btn-sm for smaller size -->
-                            </form>
-                            <% } %>
-                    </div>
-                    </div>
-                <% if ((index + 1) % 4===0) { %> <!-- Added this line to check for every fourth card -->
-        </div>
-        <div class="row">
-            <% } %>
-                <% }) %>
         </div>
     </div>
-</section>
 
+    <section class="restaurants">
+        <div class="banner-container">
+            <img src="/images/banner.png" alt="Food Banner" class="img-fluid" />
+        </div>
 
+        <div class="container py-5">
+            <div class="row py-2">
+                <div class="col-lg-5 m-auto text-center">
+                    <h1>Restaurants</h1>
+                    <h6 style="color:#777B7E;">Discover Every Flavorful Dining Spot</h6>
+                </div>
+            </div>
 
+            <div class="row">
+                <% restaurants.forEach((r, index)=> { %>
+                    <div class="col-lg-3 mb-4 text-center">
+                        <div class="card border-0 bg-light shadow">
+                            <div class="card-body">
+                                <!-- Add content for each restaurant card here -->
+                                <img src="<%= r.image %>" class="card-img-top" alt="Restaurant Image"
+                                    style="max-height: 350px;">
+                                <h5 class="card-title">
+                                    <%= r.name %>
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <%= r.address %>
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="mt-3 d-flex justify-content-center">
+                            <a href="/restaurants/<%= r.id %>" class="btn btn-sm btn-custom">View</a>
+                        </div>
+                    </div>
+                    <% if ((index + 1) % 4===0) { %>
+            </div>
+            <div class="row">
+                <% } %>
+                    <% }) %>
 
+                <!-- Display Menu Items -->
+                <% menuItems.forEach((menuItem)=> { %>
+                    <div class="col-lg-3 mb-4 text-center">
+                        <div class="card border-0 bg-light shadow">
+                            <div class="position-relative">
+                                <span class="badge badge-info position-absolute" style="top: 10px; left: 10px;">Dish</span>
+                                <img src="<%= menuItem.menuItem.image %>" class="card-img-top" alt="Menu Item Image"
+                                    style="max-height: 350px;">
+                            </div>
+                            <div class="card-body">
+                                <!-- Add content for each menu item card here -->
+                                <h5 class="card-title">
+                                    <%= menuItem.menuItem.name %>
+                                </h5>
+                                <!-- Add other menu item details here -->
+                                <p class="card-text text-muted">
+                                    <%= menuItem.restaurantName %>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-3 d-flex justify-content-center">
+                            <a href="/restaurants/<%= menuItem.restaurantId %>" class="btn btn-sm btn-custom">View Restaurant</a>
+                        </div>
+                    </div>
+                    <% }) %>
 
-<%- include('../partials/footer') %>
+            </div>
+        </div>
+    </section>
+
+    <%- include('../partials/footer') %>
