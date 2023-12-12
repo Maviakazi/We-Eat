@@ -28,6 +28,7 @@ async function create(req, res) {
             name: req.body.menu_name,
             category: req.body.menu_category,
             price: req.body.menu_price,
+            image: req.body.menu_image,
         };
         restaurant.menu.push(newDish);
         await restaurant.save();
@@ -76,6 +77,7 @@ async function update(req, res) {
 
         menuItem.name = req.body.menu_name;
         menuItem.price = req.body.menu_price;
+        menuItem.image = req.body.menu_image;
 
         await restaurant.save();
         res.redirect(`/restaurants/${req.params.restaurantId}`);

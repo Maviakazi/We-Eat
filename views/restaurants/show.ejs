@@ -14,17 +14,17 @@
             </div>
 
             <div class="row">
-                <% if(user && user.isAdmin){%>
+                <% if(user && user.isAdmin){ %>
                     <div class="col-12 mb-4 text-center">
                         <div class="mt-3 d-flex justify-content-center">
-                        <a href="/restaurants/<%= restaurant.id %>/menu/new" class="btn btn-sm btn-custom mr-2">Add New
-                            Dish</a>
-                        <a href="/restaurants/<%= restaurant.id %>/edit" class="btn mr-5 btn-sm btn-custom !important">Edit
-                            Restaurant</a>
-                        <form method="POST" action="/restaurants/<%= restaurant.id %>?_method=DELETE"
-                            onsubmit="return confirmDelete()">
-                            <button type="submit" class="btn btn-sm btn-custom">Delete Restaurant</button>
-                        </form>
+                            <a href="/restaurants/<%= restaurant.id %>/menu/new" class="btn btn-sm btn-custom mr-2">Add
+                                New Dish</a>
+                            <a href="/restaurants/<%= restaurant.id %>/edit"
+                                class="btn mr-5 btn-sm btn-custom !important">Edit Restaurant</a>
+                            <form method="POST" action="/restaurants/<%= restaurant.id %>?_method=DELETE"
+                                onsubmit="return confirmDelete()">
+                                <button type="submit" class="btn btn-sm btn-custom">Delete Restaurant</button>
+                            </form>
                         </div>
                     </div>
                     <% } %>
@@ -32,7 +32,7 @@
                         <% if (restaurant.menu && restaurant.menu.length> 0) { %>
                             <% restaurant.menu.forEach(menuItem=> { %>
                                 <div class="col-lg-3 mb-4 text-center">
-                                    <div class="card border-0 bg-light">
+                                    <div class="card border-0 bg-light shadow">
                                         <div class="card-body">
                                             <!-- Add content for each card here -->
                                             <img src="<%= menuItem.image %>" class="card-img-top" alt="Restaurant Image"
@@ -46,26 +46,23 @@
                                                 <%= menuItem.category %>
                                             </h6>
                                         </div>
-
-                                        <div class="mt-3 d-flex justify-content-center">
-                                            <% if(user && user.isAdmin){%>
-                                                <a href="/restaurants/<%= restaurant.id %>/menu/<%= menuItem.id %>/edit"
-                                                    class="btn btn-sm btn-custom mr-2">Edit Dish</a>
-                                                <form
-                                                    action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem._id %>?_method=DELETE"
+                                    </div>
+                                    <div class="mt-4 d-flex justify-content-center">
+                                        <% if(user && user.isAdmin){ %>
+                                            <a href="/restaurants/<%= restaurant.id %>/menu/<%= menuItem.id %>/edit"
+                                                class="btn btn-sm btn-custom mr-2">Edit Dish</a>
+                                            <form
+                                                action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem._id %>?_method=DELETE"
+                                                method="POST">
+                                                <button type="submit" class="btn btn-sm btn-custom">Delete Dish</button>
+                                            </form>
+                                            <% } else if(user && !user.Admin) { %>
+                                                <form action="/orders/<%= restaurant.id %>/menu/<%= menuItem._id %>/add"
                                                     method="POST">
-                                                    <button type="submit" class="btn btn-sm btn-custom">Delete
-                                                        Dish</button>
+                                                    <button type="submit" class="btn btn-sm btn-custom">Add To
+                                                        Order</button>
                                                 </form>
-                                                <% } else if(user && !user.Admin) {%>
-                                                    <form
-                                                        action="/orders/<%= restaurant.id %>/menu/<%= menuItem._id %>/add"
-                                                        method="POST">
-                                                        <button type="submit" class="btn btn-sm btn-custom">Add To
-                                                            Order</button>
-                                                    </form>
-                                                    <% } %>
-                                        </div>
+                                                <% } %>
                                     </div>
                                 </div>
                                 <% }); %>

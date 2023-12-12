@@ -1,30 +1,49 @@
 <%- include('../partials/header') %>
 
-<form method="POST" action="/restaurants/<%= restaurant.id %>/menu">
+    <div class="container py-5 newitem">
+        <form method="POST" action="/restaurants/<%= restaurant.id %>/menu">
 
+            <h3 class="mb-4">Add a New Dish to the Menu</h3>
 
-    <div id="menuCategories">
-        <div class="menuCategory">
-            <label for="category">Category</label>
-            <select name="menu_category" required>
-                <option value="starters">Starters</option>
-                <option value="maincourse">Main Course</option>
-                <option value="dessert">Dessert</option>
-            </select>
-            <br>
-            <label for="dishes">Dishes</label>
-            <input type="text" name="menu_name">
-            <br>
-            <label for="price">Price</label>
-            <input type="text" name="menu_price">
-        </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="category" class="form-label">Category</label>
+                    <select name="menu_category" class="form-select" required>
+                        <option value="starters">Starters</option>
+                        <option value="maincourse">Main Course</option>
+                        <option value="dessert">Dessert</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="dishes" class="form-label">Dishe Name</label>
+                    <input type="text" name="menu_name" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="price" class="form-label">Price $</label>
+                    <input type="text" name="menu_price" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="image" class="form-label">Image Url</label>
+                    <input type="url" name="menu_image" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-custom">Add Dish</button>
+                </div>
+            </div>
+
+        </form>
     </div>
-    
-    <button type="submit">Add Dish</button>
-    <br><br>
 
-</form>
-
-
-
-<%- include('../partials/footer') %>
+    <%- include('../partials/footer') %>

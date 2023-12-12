@@ -1,51 +1,68 @@
 <%- include('../partials/header') %>
 
+    <div class="container py-5 newitem">
+        <form method="POST" action="/restaurants/<%= restaurant.id %>?_method=PUT">
+            <!-- Restaurant details -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Restaurant Name:</label>
+                    <input type="text" id="name" name="name" value="<%= restaurant.name %>" class="form-control"
+                        required>
+                </div>
 
-<form method="POST" action="/restaurants/<%= restaurant.id %>?_method=PUT">
-    <!-- Restaurant details -->
-    <label for="name">Restaurant Name:</label>
-    <input type="text" id="name" name="name" value="<%= restaurant.name %>" required>
-    <br>
+                <div class="col-md-6">
+                    <label for="address" class="form-label">Restaurant Address:</label>
+                    <input type="text" id="address" name="address" value="<%= restaurant.address %>"
+                        class="form-control" required>
+                </div>
+            </div>
 
-    <label for="address">Restaurant Address:</label>
-    <input type="text" id="address" name="address" value="<%= restaurant.address %>" required>
-    <br>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="image" class="form-label">Image URL:</label>
+                    <input type="url" id="image" name="image" value="<%= restaurant.image %>" class="form-control">
+                </div>
+            </div>
+            <br>
+            <!-- Menu details -->
+            <h5>Edit Menu Items:</h5>
+            <br>
+            <% if (restaurant.menu.length) { %>
+                <% for (let i=0; i < restaurant.menu.length; i +=2) { %>
+                    <div class="row mb-3">
+                        <% for (let j=i; j < i + 2 && j < restaurant.menu.length; j++) { %>
+                            <div class="col-md-6">
+                                <strong>Category:</strong> <%= restaurant.menu[j].category.charAt(0).toUpperCase() +
+                                        restaurant.menu[j].category.slice(1) %> <br> <br>
+                                <label for="menu_<%= j %>_name" class="form-label">Dish Name:</label>
+                                <input type="text" id="menu_<%= j %>_name" name="menu_name"
+                                    value="<%= restaurant.menu[j].name %>" class="form-control" required><br>
 
-    <label for="image">Image URL</label>
-    <input type="url" id="image" name="image" value="<%= restaurant.image %>">
+                                <label for="menu_<%= j %>_price" class="form-label">Dish Price:</label>
+                                <input type="text" id="menu_<%= j %>_price" name="menu_price"
+                                    value="<%= restaurant.menu[j].price %>" class="form-control" required><br>
 
-    <!-- Menu details -->
-    <h3>Edit Menu Items:</h3>
-    
-<% restaurant.menu.forEach(function (menuItem, index) { %>
-  
+                                <label for="menu_<%= j %>_image" class="form-label">Image Url:</label>
+                                <input type="url" id="menu_<%= j %>_image" name="menu_image"
+                                    value="<%= restaurant.menu[j].image %>" class="form-control"><br>
 
-<% if (menuItem) { %>
+                                <form
+                                    action="/restaurants/<%= restaurant.id %>/menu/<%= restaurant.menu[j]._id %>?_method=DELETE"
+                                    method="POST">
+                                    <button type="submit" class="btn btn-danger">Delete Dish</button>
+                                </form>
 
-    <strong>Category: <%= menuItem.category.charAt(0).toUpperCase()+ menuItem.category.slice(1) %></strong> <br>
+                                <br><br>
+                            </div>
+                            <% } %>
+                   
+                    <% } %>
+                        <% } %>
+                        </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-custom">Update Restaurant</button>
+                            </div>
+        </form>
+    </div>
 
-    <label for="menu_<%= index %>_name">Dish Name:</label>
-    <input type="text" id="menu_<%= index %>_name" name="menu_name" value="<%= menuItem.name %>" required><br>
-
-    <label for="menu_<%= index %>_name">Dish Price:</label>
-    <input type="text" id="menu_<%= index %>_name" name="menu_price" value="<%= menuItem.price %>" required><br>
-
-    <label for="menu_<%= index %>_image">Image Url:</label>
-    <input type="url" id="menu_<%= index %>_image" name="menu_image" value="<%= menuItem.image %>" ><br>
-
-    <form action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem._id %>?_method=DELETE" method="POST">
-        <button type="submit">Delete Dish</button>
-        
-    
-
-<br><br>
-    <br>
-
-    <% } %>
- 
-            <% }); %>
-           
-        <button type="submit">Update Restaurant</button>
-    </form>
-
-<%- include('../partials/footer') %>
+    <%- include('../partials/footer') %>

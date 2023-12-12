@@ -28,7 +28,8 @@
     color: black;
 }
 
-.restaurants .btn-custom {
+.restaurants .btn-custom,
+.newitem .btn-custom {
     align-items: center;
     appearance: none;
     background-color: #fff;
@@ -55,7 +56,8 @@
     vertical-align: top;
     white-space: nowrap;
 }
-.restaurants .btn-custom:hover {
+.restaurants .btn-custom,
+.newitem .btn-custom:hover {
     border-color: black;
 }
 

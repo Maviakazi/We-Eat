@@ -1,45 +1,46 @@
 <%- include('../partials/header') %>
 
-<h2>Your Order <%= user.name.split(' ')[0] %></h2>
-<h3<%= restaurant.name %></h3>
+    <div class="container py-5 newitem">
+        <h2>Your Order <%= user.name.split(' ')[0] %></h2>
+    <h4><%= restaurant.name %></h4>
 
-
-
-
-<% if (userOrder){ %>
-   
-    
-
-        <table>
+    <% if (userOrder) { %>
+        <table class="table">
             <thead>
                 <tr>
-                    <th>Dish</th>
-                    <th>Price</th>
+                    <th scope="col">Dish</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Actions</th>
+                </tr>
             </thead>
             <tbody>
-                <% let total=0 %>
-                <% userOrder.forEach(order=> { %>
-                    <% total +=order.price %>
-                <tr>
-                    <td> <%= order.name %> </td>
-                    <td> <%= order.price %> </td>
-                    <td><form action="/orders/<%= order._id %>?_method=DELETE" method="POST">
-                      
-                        <button type="submit">Remove</button>
-                    </form></td>
-                </tr>
+                <% let total = 0 %>
+                <% userOrder.forEach(order => { %>
+                    <% total += order.price %>
+                    <tr>
+                        <td><%= order.name %></td>
+                        <td>$<%= order.price %></td>
+                        <td>
+                            <form action="/orders/<%= order._id %>?_method=DELETE" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td><strong>Order Total</strong></td>
+                    <td><strong>$<%= total %></strong></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    <% } %>
 
-        <% })%>
-        <tfoot>
-            <tr>
-                <td><strong>Order Total</strong></td>
-                <td><strong>$<%=total%></strong></td>
-            </tr>
-        </tfoot>
-    </table> 
-<%}%>
-
-<li><a href="/order/checkout">Checkout</a></li>
+    <div class="text-end">
+        <a href="/order/checkout" class="btn btn-custom">Checkout</a>
+    </div>
+</div>
 
 <%- include('../partials/footer') %>
