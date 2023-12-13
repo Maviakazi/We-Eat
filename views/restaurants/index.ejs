@@ -24,6 +24,21 @@
             <img src="/images/banner.png" alt="Food Banner" class="img-fluid" />
         </div>
 
+
+        <form class="form-inline float-lg-right" action="/restaurants" method="GET">
+            <label for="userAddress">Delivery Time to your Address:</label>
+            <div class="input-group">
+                <input type="text" name="userAddress" id="userAddress" class="form-control" placeholder="<%= userAddress %>">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary btn-custom">
+                        Update Address
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div id="deliveryTime" class="mt-3"></div>
+
+
         <div class="container py-5">
             <div class="row py-2">
                 <div class="col-lg-5 m-auto text-center">
@@ -34,6 +49,7 @@
 
             <div class="row">
                 <% restaurants.forEach((r, index)=> { %>
+                    
                     <div class="col-lg-3 mb-4 text-center">
                         <div class="card border-0 bg-light shadow">
                             <div class="card-body">
@@ -46,6 +62,13 @@
                                 <h6 class="card-subtitle mb-2 text-muted">
                                     <%= r.address %>
                                 </h6>
+                                <% if(user && !user.isAdmin){ %>
+                                    <% const restaurantDeliveryTime=restaurantsWithDeliveryTimes.find(el=> el._id.toString() === r._id.toString()); %>
+                                        <div class="card-subtitle mb-2 text-muted"> est delivery 
+                                            <%= restaurantDeliveryTime ? restaurantDeliveryTime.deliveryTime : 'N/A' %>
+                                        </div>
+                                    <%}%>
+                                   
                             </div>
                         </div>
                         <div class="mt-3 d-flex justify-content-center">
@@ -96,5 +119,15 @@
             </div>
         </div>
     </section>
+
+  
+ 
+    
+  
+
+
+
+
+
 
     <%- include('../partials/footer') %>

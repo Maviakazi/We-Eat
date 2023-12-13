@@ -1,6 +1,7 @@
 const Restaurant = require('../models/restaurant');
 
-const { findByIdAndDelete } = require('../models/user');
+const User = require('../models/user');
+const axios = require('axios');
 
 module.exports = {
     index,
@@ -12,8 +13,50 @@ module.exports = {
     update,
 };
 
+async function calculateDeliveryTime(userAddress, restaurantAddress) {
+    try {
+        const response = await axios.get(
+            'https://maps.googleapis.com/maps/api/distancematrix/json',
+            {
+                params: {
+                    origins: userAddress,
+                    destinations: restaurantAddress,
+                    mode: 'driving',
+                    key: 'AIzaSyB62IrY1Ntte3dBc-2XWzSBjD3sfKPucuw',
+                },
+            }
+        );
+
+        const distanceMatrix = response.data;
+        if (distanceMatrix.status === 'OK') {
+            const element = distanceMatrix.rows[0].elements[0];
+            if (element.status === 'OK') {
+                const durationText = element.duration.text;
+                return durationText;
+            } else {
+                console.error(
+                    'Error calculating delivery time:',
+                    element.status
+                );
+            }
+        } else {
+            console.error(
+                'Distance Matrix request failed:',
+                distanceMatrix.status
+            );
+        }
+    } catch (error) {
+        console.error('Error calculating delivery time:', error.message);
+    }
+
+    // Return a default value or handle errors as needed
+}
+
 async function index(req, res) {
     try {
+        const userAddress =
+            req.query.userAddress ||
+            '45 Bunnett Street, Sunshine North VIC 3020';
         let restaurants = [];
         let menuItems = [];
 
@@ -50,10 +93,31 @@ async function index(req, res) {
             ]);
         }
 
+        const deliveryTimesPromises = restaurants.map(async (restaurant) => {
+            const deliveryTime = await calculateDeliveryTime(
+                userAddress,
+                restaurant.address
+            );
+            return deliveryTime;
+        });
+
+        const deliveryTimes = await Promise.all(deliveryTimesPromises);
+
+        // Combine restaurant data with calculated delivery times
+        const restaurantsWithDeliveryTimes = restaurants.map(
+            (restaurant, index) => ({
+                ...restaurant.toObject(),
+                deliveryTime: deliveryTimes[index],
+            })
+        );
+        console.log(restaurantsWithDeliveryTimes);
+
         res.render('restaurants/index', {
             restaurants,
             menuItems,
             searchOptions: req.query,
+            userAddress,
+            restaurantsWithDeliveryTimes,
         });
     } catch (err) {
         console.log(err);
@@ -64,7 +128,10 @@ async function show(req, res) {
     try {
         const restaurantId = req.params.id;
         const restaurant = await Restaurant.findById(restaurantId);
-        res.render('restaurants/show', { restaurant });
+        const userAddress = '45 Bunnett Street, Sunshine North VIC 3020';
+
+        console.log(userAddress);
+        res.render('restaurants/show', { restaurant, userAddress });
     } catch (err) {
         console.log(err);
     }

@@ -19,7 +19,6 @@ async function checkout(req, res) {
 
 async function index(req, res) {
     try {
-        // console.log(`UserID is ${req.user._id}`);
         const userId = req.user._id;
         const user = req.user;
         let userOrder = [];
