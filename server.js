@@ -40,6 +40,7 @@ app.use(function (req, res, next) {
     next();
 });
 app.use(methodOverride('_method'));
+app.use('/favicon.ico', (req, res) => res.status(204));
 
 app.use('/', indexRouter);
 app.use('/restaurants', restaurantsRouter);

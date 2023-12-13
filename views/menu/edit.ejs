@@ -1,20 +1,35 @@
 <%- include('../partials/header') %>
 
-<form method="POST" action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem.id %>?_method=PUT">
+    <div class="container mt-5 newitem">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="POST" action="/restaurants/<%= restaurant.id %>/menu/<%= menuItem.id %>?_method=PUT">
+                    <h3 class="mb-3">Edit this dish in <%= menuItem.category.charAt(0).toUpperCase() +
+                            menuItem.category.slice(1) %>
+                    </h3>
 
-<h3>Edit this dish in <%= menuItem.category.charAt(0).toUpperCase()+ menuItem.category.slice(1) %></h3>
+                    <div class="mb-3">
+                        <label for="menu_name" class="form-label">Dish Name:</label>
+                        <input type="text" id="menu_name" name="menu_name" value="<%= menuItem.name %>"
+                            class="form-control" required>
+                    </div>
 
-<label for="menu_name">Dish Name:</label>
-<input type="text" id="menu_name" name="menu_name" value="<%= menuItem.name %>" required>
+                    <div class="mb-3">
+                        <label for="menu_price" class="form-label">Dish Price:</label>
+                        <input type="text" id="menu_price" name="menu_price" value="<%= menuItem.price %>"
+                            class="form-control" required>
+                    </div>
 
+                    <div class="mb-3">
+                        <label for="menu_image" class="form-label">Image Url:</label>
+                        <input type="url" id="menu_image" name="menu_image" value="<%= menuItem.image %>"
+                            class="form-control" required>
+                    </div>
 
-<label for="menu_price">Dish Price:</label>
-<input type="text" id="menu_price" name="menu_price" value="<%= menuItem.price %>" required>
+                    <button type="submit" class="btn btn-custom">Update dish</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-<label for="menu_image">Image Url:</label>
-<input type="url" id="menu_image" name="menu_image" value="<%= menuItem.image %>" required>
-
-<button type="submit">Update dish</button>
-</form>
-
-<%- include('../partials/footer') %>
+    <%- include('../partials/footer') %>

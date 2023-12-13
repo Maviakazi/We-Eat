@@ -11,7 +11,7 @@
                     <div class="form-group mx-sm-3 mb-2 d-flex">
                         <label for="name" class="sr-only"></label>
                         <input type="text" value="<%= searchOptions.name %>" name="name" class="form-control"
-                            placeholder="Search by Restaurant Name">
+                            placeholder="Search Restaurant or Dish">
                         <button type="submit" class="btn btn-custom ml-2">Search</button>
                     </div>
                 </form>
@@ -50,6 +50,15 @@
                         </div>
                         <div class="mt-3 d-flex justify-content-center">
                             <a href="/restaurants/<%= r.id %>" class="btn btn-sm btn-custom">View</a>
+                            <% if(user && user.isAdmin){ %>
+                                <a href="/restaurants/<%= r.id %>/edit" class="btn btn-sm btn-custom"
+                                    style="margin-left: 5px; margin-right: 5px;">Edit</a>
+                                <!-- Added mx-2 for margin -->
+                                <form method="POST" action="/restaurants/<%= r.id %>?_method=DELETE" onsubmit="return confirmDelete()"
+                                    class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-custom">Delete</button> <!-- Added btn-sm for smaller size -->
+                                </form>
+                                <% } %>
                         </div>
                     </div>
                     <% if ((index + 1) % 4===0) { %>
@@ -63,7 +72,7 @@
                     <div class="col-lg-3 mb-4 text-center">
                         <div class="card border-0 bg-light shadow">
                             <div class="position-relative">
-                                <span class="badge badge-info position-absolute" style="top: 10px; left: 10px;">Dish</span>
+                                <span class="badge badge-info position-absolute" style="top: 10px; left: 10px;">DISH</span>
                                 <img src="<%= menuItem.menuItem.image %>" class="card-img-top" alt="Menu Item Image"
                                     style="max-height: 350px;">
                             </div>
