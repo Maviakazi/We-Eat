@@ -48,11 +48,10 @@ async function calculateDeliveryTime(userAddress, restaurantAddress) {
     } catch (error) {
         console.error('Error calculating delivery time:', error.message);
     }
-
-    // Return a default value or handle errors as needed
 }
 
 async function index(req, res) {
+    const title = 'Restaurants';
     try {
         const userAddress =
             req.query.userAddress ||
@@ -110,9 +109,10 @@ async function index(req, res) {
                 deliveryTime: deliveryTimes[index],
             })
         );
-        console.log(restaurantsWithDeliveryTimes);
+        // console.log(restaurantsWithDeliveryTimes);
 
         res.render('restaurants/index', {
+            title,
             restaurants,
             menuItems,
             searchOptions: req.query,
@@ -129,16 +129,17 @@ async function show(req, res) {
         const restaurantId = req.params.id;
         const restaurant = await Restaurant.findById(restaurantId);
         const userAddress = '45 Bunnett Street, Sunshine North VIC 3020';
-
-        console.log(userAddress);
-        res.render('restaurants/show', { restaurant, userAddress });
+        const title = restaurant.name;
+        // console.log(userAddress);
+        res.render('restaurants/show', { title, restaurant, userAddress });
     } catch (err) {
         console.log(err);
     }
 }
 
 async function newRestaurant(req, res) {
-    res.render('restaurants/new', { restaurant: new Restaurant() });
+    const title = 'Add New Restaurant';
+    res.render('restaurants/new', { title, restaurant: new Restaurant() });
 }
 
 async function create(req, res) {
@@ -180,8 +181,8 @@ async function edit(req, res) {
         const id = req.params.id;
         const restaurant = await Restaurant.findById(id);
         // console.log(restaurant);
-
-        res.render('restaurants/edit', { restaurant });
+        const title = 'Edit Restaurant';
+        res.render('restaurants/edit', { title, restaurant });
     } catch (err) {
         console.log(err);
     }

@@ -13,8 +13,9 @@ module.exports = {
 async function checkout(req, res) {
     const userId = req.user._id;
     const user = req.user;
+    const title = 'Checkout';
 
-    res.render('orders/checkout');
+    res.render('orders/checkout', { title });
 }
 
 async function index(req, res) {
@@ -28,7 +29,8 @@ async function index(req, res) {
             userOrder.length > 0 ? userOrder[0].restaurant : null;
 
         const restaurant = await Restaurant.findById(restaurantId);
-        console.log(`Restaurant is ${restaurant}`);
+        const title = 'Your Order';
+        // console.log(`Restaurant is ${restaurant}`);
         res.render('orders/index', { userOrder, user, restaurant });
     } catch (error) {
         console.log(error);

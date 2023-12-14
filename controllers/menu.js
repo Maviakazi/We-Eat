@@ -11,8 +11,8 @@ module.exports = {
 async function newDish(req, res) {
     try {
         const restaurant = await Restaurant.findById(req.params.restaurantId);
-
-        res.render('menu/new', { restaurant });
+        const title = 'Add Dish';
+        res.render('menu/new', { title, restaurant });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
@@ -59,7 +59,8 @@ async function edit(req, res) {
     try {
         const restaurant = await Restaurant.findById(req.params.restaurantId);
         const menuItem = restaurant.menu.id(req.params.menuItemId);
-        res.render('menu/edit', { restaurant, menuItem });
+        const title = 'Edit Dish';
+        res.render('menu/edit', { title, restaurant, menuItem });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
