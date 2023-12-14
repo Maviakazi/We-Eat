@@ -12,55 +12,54 @@ Access the [Github Repository](https://github.com/Maviakazi/We-Eat) for the sour
 
 ### App Functionality
 
-    Explore my app's easy-to-use features, including dynamic restaurant exploration, menu customization, and an efficient order management system, redefining the user experience
+Explore my app's easy-to-use features, including dynamic restaurant exploration, menu customization, and an efficient order management system, redefining the user experience
 
-#### All Restaurants Page
+### All Restaurants Page
 
-    -   Any visitor can view a list of All restaurants and search for a restaurant or dish
-    -   An Admin can see the options of 'View, 'Add', 'Edit' and 'Delete' for each restaurant.
-    -   A user can only see the 'View' option to check out that particular restaurant
-    -   A user is also able to see delivery times for each restaurant to their address when they input their address in the form
+-   Any visitor can view a list of All restaurants and search for a restaurant or dish
+-   An Admin can see the options of 'View, 'Add', 'Edit' and 'Delete' for each restaurant.
+-   A user can only see the 'View' option to check out that particular restaurant
+-   A user is also able to see delivery times for each restaurant to their address when they input their address in the form
 
 #### Single Restaurant Page
 
-    -   Any visitor can see Restaurant location on the map, it's menu items and respective prices.
-    -   An admin is able to 'Add', 'Edit, 'Delete' a restaurant as well as its menu (including individual menu items)
-    -   A user is able to calculate delivery time from that particular restaurant to their address.
-    -   A user can Add items to their order
+-   Any visitor can see Restaurant location on the map, it's menu items and respective prices.
+-   An admin is able to 'Add', 'Edit, 'Delete' a restaurant as well as its menu (including individual menu items)
+-   A user is able to calculate delivery time from that particular restaurant to their address.
+-   A user can Add items to their order
 
 #### Order Page
 
-    -   A user is able to navigate to their order page and view a list of the menu items they added to their order.
-    -   A user is able to delete each menu item from their order.
-    -   A user is able to see the real time total of their order and can proceed to checkout.
-    -   A user is able to see a fake checkout page
+-   A user is able to navigate to their order page and view a list of the menu items they added to their order.
+-   A user is able to delete each menu item from their order.
+-   A user is able to see the real time total of their order and can proceed to checkout.
+-   A user is able to see a fake checkout page
 
 ### Wireframes and ERD
 
 <div>
 
-<img src="public/images/Wireframes.png" alt="Wireframe" class="img-fluid"/>
+<img src="public/images/Wireframes.png"/>
 
 </div>
 
 <div>
 
-<img src="public/images/ERD.png" alt="ERD Diagram" class="img-fluid"/>
+<img src="public/images/ERD.png"/>
 
 </div>
 
 ### 📷 App Screenshots
 
-<img src="public/images/homepage.png" alt="ERD Diagram" class="img-fluid"/>
+<img src="public/images/homepage.png" style="width: 150%;"/>
 
-<img src="public/images/AllRestaurants.png" alt="ERD Diagram" class="img-fluid"/>
+<img src="public/images/AllRestaurants.png" />
 
-<img src="public/images/ShowRestaurants.png" alt="ERD Diagram" class="img-fluid"/>
+<img src="public/images/ShowRestaurants.png" />
 
-<img src="public/images/Screenshot.png" alt="ERD Diagram" class="img-fluid"/>
+<img src="public/images/Screenshot.png" />
 
-<img src="public/images/Screenshot1.png" alt="ERD Diagram" class="img-fluid"/>
-<!-- <img src="public/images/Homepage - Not Logged In.png"/> -->
+<img src="public/images/Screenshot1.png"/>
 
 ### ⚙️ Technologies Used
 
