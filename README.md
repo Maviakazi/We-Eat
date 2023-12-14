@@ -39,11 +39,28 @@ Access the [Github Repository](https://github.com/Maviakazi/We-Eat) for the sour
 
 <div>
 
-<img src="public/images/Wireframes.png" alt="Delivery Image" class="img-fluid"/>
+<img src="public/images/Wireframes.png" alt="Wireframe" class="img-fluid"/>
 
 </div>
 
-### 📷 Final Screenshots
+<div>
+
+<img src="public/images/ERD.png" alt="ERD Diagram" class="img-fluid"/>
+
+</div>
+
+### 📷 App Screenshots
+
+<img src="public/images/homepage.png" alt="ERD Diagram" class="img-fluid"/>
+
+<img src="public/images/AllRestaurants.png" alt="ERD Diagram" class="img-fluid"/>
+
+<img src="public/images/ShowRestaurants.png" alt="ERD Diagram" class="img-fluid"/>
+
+<img src="public/images/Screenshot.png" alt="ERD Diagram" class="img-fluid"/>
+
+<img src="public/images/Screenshot1.png" alt="ERD Diagram" class="img-fluid"/>
+<!-- <img src="public/images/Homepage - Not Logged In.png"/> -->
 
 ### ⚙️ Technologies Used
 

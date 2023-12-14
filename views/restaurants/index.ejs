@@ -24,20 +24,26 @@
             <img src="/images/banner.png" alt="Food Banner" class="img-fluid" />
         </div>
 
-
-        <form class="form-inline float-lg-right" action="/restaurants" method="GET">
-            <label for="userAddress">Delivery Time to your Address:</label>
-            <div class="input-group">
-                <input type="text" name="userAddress" id="userAddress" class="form-control" placeholder="<%= userAddress %>">
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-custom">
-                        Update Address
-                    </button>
+        <% if(user && !user.isAdmin){ %>
+            <div class="container mt-4">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-5">
+                        <form class="form-inline float-lg-right" action="/restaurants" method="GET">
+                            <label for="userAddress">Delivery Time to your Address:</label>
+                            <div class="input-group">
+                                <input type="text" name="userAddress" id="userAddress" class="form-control" placeholder="<%= userAddress %>">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-custom btn-custom">
+                                        Update Address
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="deliveryTime" class="mt-3"></div>
+                    </div>
                 </div>
             </div>
-        </form>
-        <div id="deliveryTime" class="mt-3"></div>
-
+        <%}%>
 
         <div class="container py-5">
             <div class="row py-2">
@@ -56,7 +62,7 @@
                                 <!-- Add content for each restaurant card here -->
                                 <img src="<%= r.image %>" class="card-img-top" alt="Restaurant Image"
                                     style="max-height: 350px;">
-                                <h5 class="card-title">
+                                <h5 class="card-title mt-2">
                                     <%= r.name %>
                                 </h5>
                                 <h6 class="card-subtitle mb-2 text-muted">

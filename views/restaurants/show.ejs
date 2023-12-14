@@ -16,25 +16,27 @@
 
             <div id="map" style="height:300px;">
             </div>
-           
-        <div class="container mt-4">
-            <div class="row d-flex justify-content-center">
-                <div class="col-lg-5">
-                    <label for="userAddress">Delivery Time to your Address:</label>
-                    <div class="input-group">
-                        <input type="text" id="userAddress" class="form-control" placeholder="<%= userAddress %>">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary btn-custom" onclick="calculateDeliveryTime()">
-                                Calculate Delivery Time
-                            </button>
-                        </div>
-                    </div>
         
-                    <div id="deliveryTime" class="mt-3"></div>
+        <% if(user && !user.isAdmin){ %>
+
+            <div class="container mt-4">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-5">
+                        <label for="userAddress">Delivery Time to your Address:</label>
+                        <div class="input-group">
+                            <input type="text" id="userAddress" class="form-control" placeholder="<%= userAddress %>">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary btn-custom" onclick="calculateDeliveryTime()">
+                                    Calculate Delivery Time
+                                </button>
+                            </div>
+                        </div>
+            
+                        <div id="deliveryTime" class="mt-3"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-
+        <% } %>
             
             
            
