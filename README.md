@@ -51,11 +51,19 @@ Explore my app's easy-to-use features, including dynamic restaurant exploration,
 
 ### 📷 App Screenshots
 
-<img src="public/images/homepage.png" style="width: 150%;"/>
+#### App Homepage
 
-<img src="public/images/AllRestaurants.png" />
+    Not Logged In
 
-<img src="public/images/ShowRestaurants.png" />
+<img src="public/images/Homepage - Not Logged In.png"/>
+
+    Admin
+
+<img src="public/images/Homepage - Admin.png" />
+
+    User
+
+<img src="public/images/Homepage - User.png" />
 
 <img src="public/images/Screenshot.png" />
 
