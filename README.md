@@ -53,19 +53,47 @@ Explore my app's easy-to-use features, including dynamic restaurant exploration,
 
 #### App Homepage
 
-    Not Logged In
+Not Logged In
 
 <img src="public/images/Homepage - Not Logged In.png"/>
 
-    Admin
+Admin
 
 <img src="public/images/Homepage - Admin.png" />
 
-    User
+User
 
 <img src="public/images/Homepage - User.png" />
 
-<img src="public/images/Screenshot.png" />
+#### All Restaurants
+
+Not Logged In
+
+<img src="public/images/All Restaurants - Not Logged In.png" style="max-width:75%;"/>
+
+Admin
+
+<img src="public/images/All Restaurants - Admin.png" style="max-width:75%;"/>
+
+User
+
+<img src="public/images/All Restaurants - User.png" style="max-width:75%;"/>
+
+#### Show Restaurants
+
+Not Logged in
+
+<img src="public/images/Restaurant Show Page - Not Logged In.png" style="max-width:75%;"/>
+
+Admin
+
+<img src="public/images/Restaurant Show Page - Admin.png" style="max-width:75%;"/>
+
+User
+
+<img src="public/images/Restaurant Show Page - User.png" style="max-width:75%;"/>
+
+<img src="public/images/Screenshot.png"/>
 
 <img src="public/images/Screenshot1.png"/>
 
