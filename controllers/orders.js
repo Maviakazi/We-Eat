@@ -12,6 +12,7 @@ module.exports = {
 
 async function checkout(req, res) {
     const title = 'Checkout';
+    const userId = req.user._id;
     await Order.deleteMany({ user: userId });
     res.render('orders/checkout', { title });
 }
