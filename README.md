@@ -10,8 +10,6 @@ Discover the refined version of my [WeEat food delivery App](https://weeat-t9e5.
 
 Admin Credentials: email: weeat.fooddelivery@gmail.com password: weeatfood
 
-Access the [Github Repository](https://github.com/Maviakazi/We-Eat) for the source code.
-
 ### 🧩 App Functionality
 
 Explore my app's easy-to-use features, including dynamic restaurant exploration, menu customization, and an efficient order management system, redefining the user experience
