@@ -23,7 +23,6 @@ async function create(req, res) {
     try {
         const restaurant = await Restaurant.findById(req.params.restaurantId);
         res.redirect(`/restaurants/${restaurant._id}`);
-        console.log(restaurant);
         const newDish = {
             name: req.body.menu_name,
             category: req.body.menu_category,
@@ -39,9 +38,6 @@ async function create(req, res) {
 }
 
 async function deleteItem(req, res) {
-    // console.log(`req.params.menuItemId is ${req.params.id}`);
-    // console.log('req.params:', req.params);
-
     try {
         const restaurant = await Restaurant.findByIdAndUpdate(
             req.params.restaurantId,
@@ -72,10 +68,6 @@ async function update(req, res) {
         const restaurant = await Restaurant.findById(req.params.restaurantId);
 
         const menuItem = restaurant.menu.id(req.params.menuItemId);
-
-        console.log(`menuItem is ${menuItem}`);
-        console.log(`req.body.name is ${req.body.menu_name}`);
-
         menuItem.name = req.body.menu_name;
         menuItem.price = req.body.menu_price;
         menuItem.image = req.body.menu_image;

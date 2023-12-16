@@ -2,9 +2,12 @@
 
     <div class="container py-5 newitem">
         <h2>Your Order <%= user.name.split(' ')[0] %></h2>
-    <h4><%= restaurant.name %></h4>
-        
-    <% if (userOrder) { %>
+ <% if (restaurant) { %>
+        <h4>
+            <%= restaurant.name %>
+        </h4>
+        <% } %>
+    <% if (userOrder && userOrder.length > 0) { %>
         <table class="table">
             <thead>
                 <tr>
@@ -36,11 +39,14 @@
                 </tr>
             </tfoot>
         </table>
-    <% } %>
+        <div class="text-end">
+            <a href="/order/checkout" class="btn btn-custom">Checkout</a>
+        </div>
+    <% } else {%>
+            <h6>Your Cart is empty. Please Add items to your order.</h6>
+    <% } %>    
 
-    <div class="text-end">
-        <a href="/order/checkout" class="btn btn-custom">Checkout</a>
-    </div>
+    
 </div>
 
 <%- include('../partials/footer') %>

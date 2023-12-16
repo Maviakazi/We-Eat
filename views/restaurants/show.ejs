@@ -14,7 +14,7 @@
             </div>
 
 
-            <div id="map" style="height:300px;">
+            <div class="mb-3" id="map" style="height:300px;">
             </div>
         
         <% if(user && !user.isAdmin){ %>
@@ -37,12 +37,7 @@
                 </div>
             </div>
         <% } %>
-            
-            
-           
-
-
-            <div class="row">
+        <div class="row">
                 <% if(user && user.isAdmin){ %>
                     <div class="col-12 mb-4 text-center">
                         <div class="mt-3 d-flex justify-content-center">
@@ -62,11 +57,10 @@
                             <% restaurant.menu.forEach(menuItem=> { %>
                                 <div class="col-lg-3 mb-4 text-center">
                                     <div class="card border-0 bg-light shadow">
-                                        <div class="card-body">
-                                            <!-- Add content for each card here -->
-                                            <img src="<%= menuItem.image %>" class="card-img-top" alt="Restaurant Image"
+                                        <div class="card-body" style="min-height:464px">
+                                           <img src="<%= menuItem.image %>" class="card-img-top" alt="Restaurant Image"
                                                 style="max-height: 350px;">
-                                            <h5 class="card-title">
+                                            <h5 class="card-title mt-3">
                                                 <%= menuItem.name %>
                                             </h5>
                                             <h6 class="card-subtitle mb-2 text-muted">$<%= menuItem.price %>
@@ -87,7 +81,7 @@
                                             </form>
                                             <% } else if(user && !user.Admin) { %>
                                                 <form action="/orders/<%= restaurant.id %>/menu/<%= menuItem._id %>/add"
-                                                    method="POST">
+                                                    method="POST" onsubmit="return dishAdded()">
                                                     <button type="submit" class="btn btn-sm btn-custom">Add To
                                                         Order</button>
                                                 </form>
@@ -107,32 +101,23 @@
 
   
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB62IrY1Ntte3dBc-2XWzSBjD3sfKPucuw&libraries=places&callback=initMap"></script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB62IrY1Ntte3dBc-2XWzSBjD3sfKPucuw&libraries=places&callback=initMap">
+</script>
 
 
 <script>
-    // Initialize the map
-    
+    // Initialize the map    
     function initMap() {
         // Replace 'Your Restaurant Address' with the actual address
         const restaurantAddress = '<%= restaurant.address%>';
-
-        //const myLatLng = { lat: -34.397, lng: 150.644 }
-
-        // Create a geocoder instance
+         // Create a geocoder instance
         const geocoder = new google.maps.Geocoder();
-
         // Initialize the map
         const map = new google.maps.Map(document.getElementById('map'), {
             zoom: 14,
-            // center: myLatLng,
         });
-
-        
-
         // Use the geocoding URL with the address parameter
         const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(restaurantAddress)}&key=AIzaSyB62IrY1Ntte3dBc-2XWzSBjD3sfKPucuw`;
-
         // Fetch geocoding data
         fetch(geocodingUrl)
             .then(response => response.json())
@@ -140,10 +125,8 @@
                 const status = data.status;
                 if (status === 'OK') {
                     const location = data.results[0].geometry.location;
-
                     // Update the map with the geocoded location
                     map.setCenter(location);
-
                     // Place a marker on the map
                     const marker = new google.maps.Marker({
                         position: location,

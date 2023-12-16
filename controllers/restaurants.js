@@ -1,6 +1,4 @@
 const Restaurant = require('../models/restaurant');
-
-const User = require('../models/user');
 const axios = require('axios');
 
 module.exports = {
@@ -59,16 +57,12 @@ async function index(req, res) {
         let restaurants = [];
         let menuItems = [];
 
-        // Fetch all restaurants when no search query is provided
         if (!req.query.name || req.query.name.trim() === '') {
             restaurants = await Restaurant.find();
         } else {
-            // Search for restaurants
             restaurants = await Restaurant.find({
                 name: { $regex: new RegExp(req.query.name, 'i') },
             });
-
-            // Search for menu items
             menuItems = await Restaurant.aggregate([
                 {
                     $unwind: '$menu',
@@ -109,8 +103,6 @@ async function index(req, res) {
                 deliveryTime: deliveryTimes[index],
             })
         );
-        // console.log(restaurantsWithDeliveryTimes);
-
         res.render('restaurants/index', {
             title,
             restaurants,
@@ -130,7 +122,6 @@ async function show(req, res) {
         const restaurant = await Restaurant.findById(restaurantId);
         const userAddress = '45 Bunnett Street, Sunshine North VIC 3020';
         const title = restaurant.name;
-        // console.log(userAddress);
         res.render('restaurants/show', { title, restaurant, userAddress });
     } catch (err) {
         console.log(err);
@@ -144,9 +135,6 @@ async function newRestaurant(req, res) {
 
 async function create(req, res) {
     try {
-        // console.log(`req.body.name is ${req.body.name}`);
-        // console.log(`req.body.menu_name is ${req.body.menu_name}`);
-
         const restaurantData = {
             name: req.body.name,
             address: req.body.address,
@@ -158,7 +146,6 @@ async function create(req, res) {
                 image: req.body.menu_image[index],
             })),
         };
-
         const newRestaurant = await Restaurant.create(restaurantData);
         res.redirect(`/restaurants/${newRestaurant._id}`);
     } catch (error) {
@@ -171,8 +158,9 @@ async function remove(req, res) {
     try {
         const restaurant = await Restaurant.findByIdAndDelete(req.params.id);
         res.redirect(`/restaurants`);
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
     }
 }
 
@@ -180,11 +168,11 @@ async function edit(req, res) {
     try {
         const id = req.params.id;
         const restaurant = await Restaurant.findById(id);
-        // console.log(restaurant);
         const title = 'Edit Restaurant';
         res.render('restaurants/edit', { title, restaurant });
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
     }
 }
 
@@ -196,7 +184,6 @@ async function update(req, res) {
         restaurant.name = req.body.name;
         restaurant.address = req.body.address;
         restaurant.image = req.body.image;
-
         req.body.menu_name.forEach((menuItem, index) => {
             restaurant.menu[index].name = req.body.menu_name[index];
             restaurant.menu[index].price = req.body.menu_price[index];

@@ -11,10 +11,8 @@ module.exports = {
 };
 
 async function checkout(req, res) {
-    const userId = req.user._id;
-    const user = req.user;
     const title = 'Checkout';
-
+    await Order.deleteMany({ user: userId });
     res.render('orders/checkout', { title });
 }
 
@@ -30,8 +28,7 @@ async function index(req, res) {
 
         const restaurant = await Restaurant.findById(restaurantId);
         const title = 'Your Order';
-        // console.log(`Restaurant is ${restaurant}`);
-        res.render('orders/index', { userOrder, user, restaurant });
+        res.render('orders/index', { title, userOrder, user, restaurant });
     } catch (error) {
         console.log(error);
         res.status(500).send('Login to retrieve order page');
@@ -42,19 +39,16 @@ async function removeFromOrder(req, res) {
     try {
         const userId = req.user._id;
         const orderItemId = req.params.orderId;
-
         // Find and delete the order with the provided ID and associated with the user
         const result = await Order.deleteOne({
             _id: orderItemId,
             user: userId,
         });
-
         // Check the result to see if any documents were deleted
         if (result.deletedCount === 0) {
             // If no documents were deleted, the order was not found
             return res.status(404).send('Order not found');
         }
-
         // Redirect or respond as needed
         res.redirect('/order');
     } catch (error) {
@@ -68,35 +62,26 @@ async function addToOrder(req, res) {
         const restaurantId = req.params.restaurantId;
         const menuItemId = req.params.menuItemId;
         const userId = req.user._id;
-
         // Check if the user already has an order for a different restaurant
         const existingOrder = await Order.findOne({
             user: userId,
             restaurant: { $ne: restaurantId }, // Check if the restaurant is not the same
         });
-
         if (existingOrder) {
             return res
                 .status(400)
                 .send('Cannot order from multiple restaurants');
         }
-
         const restaurant = await Restaurant.findById(restaurantId);
         const menuItem = restaurant.menu.id(menuItemId);
-
         const newOrder = await Order.create({
             name: menuItem.name,
             price: +menuItem.price,
             user: userId,
             restaurant: restaurantId,
         });
-
-        // Push the order ID to the restaurant's order array
         restaurant.order.push(newOrder._id);
-
-        // Save the updated restaurant
         await restaurant.save();
-
         res.redirect(`/restaurants/${restaurantId}`);
     } catch (error) {
         console.error(error);
@@ -107,9 +92,7 @@ async function addToOrder(req, res) {
 async function addToRestaurant(req, res) {
     try {
         const restaurant = await Restaurant.findById(req.params.restaurantId);
-
         restaurant.order.push(req.body.orderId);
-        // await restaurant.save();
         res.redirect(`/restaurants/${restaurantId}`);
     } catch (error) {
         console.log(error);

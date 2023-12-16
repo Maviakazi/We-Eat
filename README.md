@@ -6,7 +6,9 @@ Introducing WeEat, a robust full-stack food delivery app meticulously crafted wi
 
 ### 🔎 Explore My App
 
-Discover the refined version of my [WeEat food delivery App](https://weeat-t9e5.onrender.com/) now live on render
+Discover the refined version of my [WeEat food delivery App](https://weeat-t9e5.onrender.com/) now live on render.
+
+Admin Credentials: email: weeat.fooddelivery@gmail.com password: weeatfood
 
 Access the [Github Repository](https://github.com/Maviakazi/We-Eat) for the source code.
 
@@ -103,6 +105,7 @@ Explore my app's easy-to-use features, including dynamic restaurant exploration,
 
 -   HTML
 -   CSS
+-   Bootstrap
 -   JavaScript
 -   Mongo DB
 -   Mongoose
@@ -111,7 +114,6 @@ Explore my app's easy-to-use features, including dynamic restaurant exploration,
 -   EJS
 -   OAuth
 -   Passport
--   Bootstrap
 -   Google Maps Api
 -   Distance Matrix Api
 
