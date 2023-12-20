@@ -8,7 +8,7 @@ Introducing WeEat, a robust full-stack food delivery app meticulously crafted wi
 
 Discover the refined version of my [WeEat food delivery App](https://weeat-t9e5.onrender.com/) now live on render.
 
-Admin Credentials: email: weeat.fooddelivery@gmail.com password: weeatfood
+Admin login can be shared upon request. Please email me on mavia.salman.kazi@gmail.com for the credentials.
 
 ### 🧩 App Functionality
 
